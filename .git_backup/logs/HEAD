@@ -1,0 +1,23 @@
+0000000000000000000000000000000000000000 1b99b4e1fda78b4cc9b4972bee298013574c3ef6 mihalevd054-cpu <...> 1775546538 +0000	commit (initial): Initial commit
+1b99b4e1fda78b4cc9b4972bee298013574c3ef6 3b7e45ae81fbacc38bbda51dfbe093473ab00a90 mihalevd054-cpu <...> 1775663072 +0000	commit: first commit
+3b7e45ae81fbacc38bbda51dfbe093473ab00a90 0000000000000000000000000000000000000000 mihalevd054-cpu <...> 1775663079 +0000	Branch: renamed refs/heads/master to refs/heads/main
+0000000000000000000000000000000000000000 3b7e45ae81fbacc38bbda51dfbe093473ab00a90 mihalevd054-cpu <...> 1775663079 +0000	Branch: renamed refs/heads/master to refs/heads/main
+3b7e45ae81fbacc38bbda51dfbe093473ab00a90 bfa89c45244cab4aa31c7ab3e2ad827bbb53125e mihalevd054-cpu <...> 1775973880 +0000	commit: first commit
+bfa89c45244cab4aa31c7ab3e2ad827bbb53125e 0000000000000000000000000000000000000000 mihalevd054-cpu <...> 1775973884 +0000	Branch: renamed refs/heads/main to refs/heads/main
+bfa89c45244cab4aa31c7ab3e2ad827bbb53125e bfa89c45244cab4aa31c7ab3e2ad827bbb53125e mihalevd054-cpu <...> 1775973884 +0000	Branch: renamed refs/heads/main to refs/heads/main
+bfa89c45244cab4aa31c7ab3e2ad827bbb53125e b50f35367abf780c4e027b2c42c843e587dbb9d5 mihalevd054-cpu <...> 1775974000 +0000	commit: Initial commit: Django shop with Docker
+b50f35367abf780c4e027b2c42c843e587dbb9d5 0000000000000000000000000000000000000000 mihalevd054-cpu <...> 1775974003 +0000	Branch: renamed refs/heads/main to refs/heads/main
+b50f35367abf780c4e027b2c42c843e587dbb9d5 b50f35367abf780c4e027b2c42c843e587dbb9d5 mihalevd054-cpu <...> 1775974003 +0000	Branch: renamed refs/heads/main to refs/heads/main
+b50f35367abf780c4e027b2c42c843e587dbb9d5 0000000000000000000000000000000000000000 mihalevd054-cpu <...> 1775974148 +0000	Branch: renamed refs/heads/main to refs/heads/main
+b50f35367abf780c4e027b2c42c843e587dbb9d5 b50f35367abf780c4e027b2c42c843e587dbb9d5 mihalevd054-cpu <...> 1775974148 +0000	Branch: renamed refs/heads/main to refs/heads/main
+b50f35367abf780c4e027b2c42c843e587dbb9d5 0000000000000000000000000000000000000000 mihalevd054-cpu <...> 1775974273 +0000	Branch: renamed refs/heads/main to refs/heads/main
+b50f35367abf780c4e027b2c42c843e587dbb9d5 b50f35367abf780c4e027b2c42c843e587dbb9d5 mihalevd054-cpu <...> 1775974273 +0000	Branch: renamed refs/heads/main to refs/heads/main
+b50f35367abf780c4e027b2c42c843e587dbb9d5 2741d4483380c6c5de31e695dbaf17deacde9832 mihalevd054-cpu <...> 1775977109 +0000	commit: Add full project: settings, database, shop, configs
+2741d4483380c6c5de31e695dbaf17deacde9832 9a65f44f1b7a29524a114e108aceb8bc7e998381 mihalevd054-cpu <...> 1775978454 +0000	commit: Final working version
+9a65f44f1b7a29524a114e108aceb8bc7e998381 d8c04aa4e621e1e7d8ddf44d67d271445b54ccf9 mihalevd054-cpu <...> 1775979527 +0000	commit: Replace submodule with regular folder
+d8c04aa4e621e1e7d8ddf44d67d271445b54ccf9 9a4fa0dde4b3a11a25e2ad924bbb48003a09c358 mihalevd054-cpu <...> 1775980168 +0000	commit: Allow any host for easy deployment
+9a4fa0dde4b3a11a25e2ad924bbb48003a09c358 1e6b6c75ccde64346c8742990bd110856a876772 mihalevd054-cpu <...> 1775981794 +0000	commit: Enable HTTPS with tls internal, update CSRF trusted origins
+1e6b6c75ccde64346c8742990bd110856a876772 ba43b470b4ab042f8b28b5c0bca03b42b9364904 mihalevd054-cpu <...> 1775984512 +0000	commit: Use :443 with on_demand tls internal for HTTPS on any IP
+ba43b470b4ab042f8b28b5c0bca03b42b9364904 2517dd6c255d104cf30605c7006d0ab3ac3a08c1 mihalevd054-cpu <...> 1776931032 +0000	commit: Final projec
+2517dd6c255d104cf30605c7006d0ab3ac3a08c1 0000000000000000000000000000000000000000 mihalevd054-cpu <...> 1776931037 +0000	Branch: renamed refs/heads/main to refs/heads/main
+2517dd6c255d104cf30605c7006d0ab3ac3a08c1 2517dd6c255d104cf30605c7006d0ab3ac3a08c1 mihalevd054-cpu <...> 1776931037 +0000	Branch: renamed refs/heads/main to refs/heads/main

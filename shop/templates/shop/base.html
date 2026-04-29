@@ -1,0 +1,270 @@
+<!-- shop/templates/shop/base.html -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Игротека — настольные игры{% endblock %}</title>
+    
+    <!-- Мгновенное применение темы до рендеринга (без вспышек) -->
+    <script>
+        (function() {
+            const theme = localStorage.getItem('theme');
+            if (theme === 'light') {
+                document.documentElement.classList.add('light-theme');
+            }
+        })();
+    </script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #6C3FB5;
+            --primary-dark: #4A2878;
+            --accent: #FF7EB3;
+            --accent2: #FFB347;
+            --bg: #0F0A1A;
+            --bg2: #1A1128;
+            --bg3: #251A38;
+            --text: #E8E0F0;
+            --text-dim: #9A8DB0;
+            --success: #4ECB71;
+            --danger: #FF5757;
+            --card-bg: #1E1530;
+            --radius: 12px;
+            --shadow: 0 8px 32px rgba(0,0,0,0.4);
+        }
+        /* Светлая тема (зелёные акценты) – применяется к html */
+        html.light-theme {
+            --primary: #2e7d32;
+            --primary-dark: #1b5e20;
+            --accent: #66bb6a;
+            --accent2: #4caf50;
+            --bg: #f5f7fa;
+            --bg2: #ffffff;
+            --bg3: #e9ecef;
+            --card-bg: #ffffff;
+            --text: #1a2a3a;
+            --text-dim: #5c6b73;
+            --shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            transition: background 0.3s, color 0.3s;
+        }
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 2rem; }
+        header {
+            position: sticky; top: 0; z-index: 1000;
+            background: rgba(15,10,26,0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(108,63,181,0.3);
+            padding: 0 2rem;
+        }
+        html.light-theme header {
+            background: rgba(255,255,255,0.95);
+            border-bottom: 1px solid rgba(46,125,50,0.3);
+        }
+        .header-inner {
+            max-width: 1400px; margin: 0 auto;
+            display: flex; align-items: center; justify-content: space-between;
+            height: 70px;
+        }
+        .logo {
+            font-size: 1.5rem; font-weight: 800;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            display: flex; align-items: center; gap: 0.5rem;
+            cursor: pointer;
+        }
+        nav { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
+        nav a, nav button {
+            background: transparent; color: var(--text-dim);
+            padding: 0.5rem 1rem; border-radius: 8px;
+            font-size: 0.95rem; transition: all 0.3s;
+            text-decoration: none; font-family: inherit; cursor: pointer;
+        }
+        nav a:hover, nav button:hover {
+            color: var(--text); background: rgba(108,63,181,0.2);
+        }
+        html.light-theme nav a:hover, html.light-theme nav button:hover {
+            background: rgba(46,125,50,0.1);
+        }
+        .cart-btn {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark)) !important;
+            color: #fff !important; display: flex; align-items: center; gap: 0.5rem;
+            padding: 0.5rem 1.2rem !important;
+            text-decoration: none !important;
+        }
+        .theme-toggle {
+            background: var(--bg3);
+            border: none;
+            border-radius: 30px;
+            padding: 0.3rem 0.8rem;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .theme-toggle:hover {
+            background: var(--primary);
+            transform: scale(1.05);
+            color: white;
+        }
+        .hero {
+            background: linear-gradient(135deg, var(--bg) 0%, var(--bg3) 50%, var(--primary-dark) 100%);
+            padding: 5rem 2rem;
+            text-align: center;
+            border-radius: 30px;
+            margin: 1rem 0 2rem;
+        }
+        .hero h1 { font-size: 3rem; margin-bottom: 1rem; }
+        .hero-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            color: #fff; padding: 0.75rem 2rem;
+            border-radius: 50px; font-size: 1rem; text-decoration: none;
+        }
+        .filters { display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 1.5rem 0; }
+        .filter-btn, .search-box {
+            padding: 0.5rem 1rem; border-radius: 30px; background: var(--bg3);
+            border: 1px solid rgba(108,63,181,0.3); color: var(--text);
+            text-decoration: none;
+        }
+        html.light-theme .filter-btn, html.light-theme .search-box {
+            border-color: rgba(46,125,50,0.3);
+        }
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--primary);
+            border-color: var(--accent);
+            color: white;
+        }
+        .product-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem; margin: 2rem 0;
+        }
+        .product-card {
+            background: var(--card-bg); border-radius: var(--radius);
+            overflow: hidden; transition: transform 0.3s;
+            border: 1px solid rgba(108,63,181,0.15);
+            cursor: pointer;
+        }
+        html.light-theme .product-card {
+            border-color: rgba(46,125,50,0.15);
+        }
+        .product-card:hover { transform: translateY(-5px); }
+        .product-img {
+            height: 200px; display: flex; align-items: center; justify-content: center;
+            font-size: 5rem; background: var(--bg3);
+        }
+        .product-info { padding: 1rem; }
+        .product-name { font-size: 1.2rem; font-weight: bold; margin-bottom: 0.3rem; }
+        .product-desc { font-size: 0.85rem; color: var(--text-dim); margin-bottom: 0.5rem; }
+        .product-meta { display: flex; gap: 1rem; font-size: 0.8rem; color: var(--text-dim); margin-bottom: 0.5rem; }
+        .product-footer { display: flex; justify-content: space-between; align-items: center; }
+        .product-price { font-size: 1.3rem; font-weight: bold; color: var(--accent2); }
+        .btn-cart {
+            padding: 0.4rem 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: #fff;
+            border-radius: 20px;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+        .btn-cart:hover {
+            transform: scale(1.02);
+        }
+        .pagination { display: flex; justify-content: center; gap: 0.5rem; margin: 2rem 0; }
+        .pagination a, .pagination span {
+            padding: 0.4rem 0.8rem; background: var(--bg3); border-radius: 8px; text-decoration: none; color: inherit;
+        }
+        .pagination a:hover { background: var(--primary); color: white; }
+        footer {
+            background: var(--bg2); padding: 2rem; text-align: center; margin-top: 3rem;
+            border-top: 1px solid rgba(108,63,181,0.2);
+        }
+        html.light-theme footer {
+            border-top-color: rgba(46,125,50,0.2);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-inner">
+            <div class="logo" onclick="window.location.href='{% url 'home' %}'">
+                <span>🎲</span> Игротека
+            </div>
+            <nav>
+                <a href="{% url 'home' %}">🏠 Каталог</a>
+                <a href="{% url 'publisher_list' %}">🏢 Издательства</a>
+                {% if user.is_authenticated %}
+                    <span class="user-greeting">{{ user.username }}</span>
+                    <form action="{% url 'logout' %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" style="background:transparent; color:var(--danger); border:1px solid var(--danger);">Выйти</button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'login' %}">Войти</a>
+                    <a href="{% url 'register' %}">Регистрация</a>
+                {% endif %}
+                <a href="{% url 'cart_detail' %}" class="cart-btn">🛒 Корзина</a>
+                <button id="theme-toggle" class="theme-toggle">🌙</button>
+            </nav>
+        </div>
+    </header>
+
+    {% if request.resolver_match.url_name == 'home' %}
+    <div class="hero">
+        <h1>🎲 Настольные игры для ценителей необычных миров! 🌟</h1>
+        <p>Каждая игра — своя вселенная с уникальными героями.</p>
+        <a href="{% url 'home' %}" class="hero-btn">Смотреть каталог</a>
+    </div>
+    {% endif %}
+
+    <main class="container">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>© 2026 Игротека — всё для увлекательного досуга</p>
+    </footer>
+
+    <script>
+        const toggleBtn = document.getElementById('theme-toggle');
+        const root = document.documentElement;
+
+        function updateButtonIcon() {
+            const isLight = root.classList.contains('light-theme');
+            toggleBtn.textContent = isLight ? '☀️' : '🌙';
+        }
+
+        toggleBtn.addEventListener('click', () => {
+            root.classList.toggle('light-theme');
+            const isLight = root.classList.contains('light-theme');
+            localStorage.setItem('theme', isLight ? 'light' : 'dark');
+            updateButtonIcon();
+        });
+
+        updateButtonIcon();
+    </script>
+    <script>
+        document.querySelectorAll('.add-to-cart').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const slug = this.dataset.slug;
+                fetch(`/cart/add/${slug}/`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]')?.value || '',
+                    },
+                });
+            });
+        });
+    </script>
+</body>
+</html>

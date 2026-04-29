@@ -1,0 +1,97 @@
+{% extends 'shop/base.html' %}
+{% block content %}
+<div class="cart-container" style="max-width:1000px; margin:0 auto;">
+    <h1>🛒 Ваша корзина</h1>
+    {% if cart.items.all %}
+        <div class="cart-items-list">
+            {% for item in cart.items.all %}
+                <div class="cart-item-card">
+                    <div class="cart-item-name">{{ item.game.name }}</div>
+                    <div class="cart-item-price">{{ item.game.price }} ₽</div>
+                    <div class="cart-item-quantity">
+                        <form method="post" action="{% url 'update_cart_item' item.id %}" class="qty-form">
+                            {% csrf_token %}
+                            <input type="number" name="quantity" value="{{ item.quantity }}" min="1">
+                            <button type="submit" class="btn-cart">Обновить</button>
+                        </form>
+                    </div>
+                    <div class="cart-item-total">{{ item.total_price }} ₽</div>
+                    <div><a href="{% url 'remove_from_cart' item.id %}" class="remove-link">Удалить</a></div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="cart-summary">Итого: {{ cart.total_price }} ₽</div>
+        <div class="cart-actions">
+            <a href="{% url 'home' %}" class="btn-secondary">Продолжить покупки</a>
+            <a href="{% url 'checkout' %}" class="btn-primary">Оформить заказ</a>
+        </div>
+    {% else %}
+        <div class="cart-empty">
+            <span>🛒</span>
+            <p>Корзина пуста</p>
+            <a href="{% url 'home' %}" class="btn-primary">Перейти к покупкам</a>
+        </div>
+    {% endif %}
+</div>
+
+<style>
+    .cart-item-card {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1rem;
+        background: var(--card-bg);
+        padding: 1rem;
+        border-radius: 12px;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    .cart-item-name { flex: 2; }
+    .cart-item-price, .cart-item-quantity, .cart-item-total { flex: 1; }
+    .qty-form input { width: 70px; margin-right: 0.5rem; background: var(--bg3); border: 1px solid var(--text-dim); color: var(--text); }
+    .qty-form button { background: var(--primary); color: white; border: none; padding: 0.3rem 0.8rem; border-radius: 20px; cursor: pointer; }
+    .remove-link { color: var(--danger); text-decoration: none; }
+    .cart-summary {
+        text-align: right;
+        font-size: 1.3rem;
+        margin: 1rem 0;
+        font-weight: bold;
+    }
+    .cart-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+    .btn-secondary, .btn-primary {
+        display: inline-block;
+        padding: 0.6rem 1.2rem;
+        border-radius: 40px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.2s;
+        border: none;
+        cursor: pointer;
+    }
+    .btn-primary {
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        color: white;
+    }
+    .btn-primary:hover {
+        transform: scale(1.02);
+    }
+    .btn-secondary {
+        background: var(--bg3);
+        color: var(--text);
+        border: 1px solid var(--text-dim);
+    }
+    .btn-secondary:hover {
+        background: var(--primary);
+        color: white;
+        border-color: var(--primary);
+    }
+    @media (max-width: 768px) {
+        .cart-item-card { flex-direction: column; align-items: stretch; }
+        .cart-actions { justify-content: center; }
+    }
+</style>
+{% endblock %}

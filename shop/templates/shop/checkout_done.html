@@ -1,0 +1,9 @@
+{% extends 'shop/base.html' %}
+{% block title %}Заказ оформлен{% endblock %}
+{% block content %}
+<div style="text-align:center; padding:3rem;">
+    <h1>🎉 Спасибо за заказ!</h1>
+    <p>Ваш заказ успешно оформлен. Скоро с вами свяжутся.</p>
+    <a href="{% url 'home' %}" class="hero-btn">Вернуться в каталог</a>
+</div>
+{% endblock %}

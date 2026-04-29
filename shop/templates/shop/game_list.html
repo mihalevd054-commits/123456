@@ -1,0 +1,75 @@
+{% extends 'shop/base.html' %}
+
+{% block title %}{% if current_category %}{{ current_category.name }}{% else %}Все игры{% endif %}{% endblock %}
+
+{% block content %}
+<div class="section-title">🎴 Каталог игр</div>
+<div class="section-subtitle">Выберите идеальную настолку для вашего вечера</div>
+
+<!-- Форма поиска и фильтры -->
+<div class="filters">
+    <form method="get" action="." style="display: flex; gap: 0.5rem; width: 100%; flex-wrap: wrap;">
+        <input type="text" name="q" class="search-box" placeholder="🔍 Поиск по названию..." value="{{ search_query }}" style="flex: 1;">
+        <button type="submit" class="filter-btn" style="background: var(--primary); color: white;">Найти</button>
+        {% if search_query %}
+            <a href="{% url 'home' %}" class="filter-btn">Сбросить</a>
+        {% endif %}
+    </form>
+    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;">
+        <button class="filter-btn {% if not current_category %}active{% endif %}" onclick="window.location.href='{% url 'home' %}'">Все</button>
+        {% for cat in categories %}
+            <button class="filter-btn {% if current_category and current_category.id == cat.id %}active{% endif %}" onclick="window.location.href='{% url 'category_games' cat.slug %}'">{{ cat.name }}</button>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="product-grid">
+    {% for game in games %}
+        <!-- Вся карточка кликабельна – ведёт на страницу игры -->
+        <div class="product-card" onclick="window.location.href='{% url 'game_detail' game.slug %}'">
+            <div class="product-img" style="background: linear-gradient(135deg, #6C3FB5, #FF7EB3);">
+                {% if game.image %}
+                    <img src="{{ game.image.url }}" alt="{{ game.name }}" style="width: 100%; height: 100%; object-fit: cover;">
+                {% else %}
+                    🎲
+                {% endif %}
+            </div>
+            <div class="product-info">
+                <div class="product-publisher">{{ game.publisher.name }}</div>
+                <div class="product-name">{{ game.name }}</div>
+                <div class="product-desc">{{ game.description|truncatechars:80 }}</div>
+                <div class="product-meta">
+                    <span>👥 {{ game.players|default:"2-6" }}</span>
+                    <span>⏱ {{ game.play_time|default:"45-90 мин" }}</span>
+                </div>
+                <div class="product-footer">
+                    <div class="product-price">{{ game.price }} ₽</div>
+                    <!-- Кнопка "В корзину" не должна вызывать переход на детальную страницу, поэтому останавливаем всплытие события -->
+                    <a href="{% url 'add_to_cart' game.slug %}" class="btn-cart" onclick="event.stopPropagation();">🛒 В корзину</a>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <p>Игр пока нет.</p>
+    {% endfor %}
+</div>
+
+<!-- Пагинация -->
+{% if is_paginated %}
+<div class="pagination">
+    {% if page_obj.has_previous %}
+        <a href="?page=1&q={{ search_query }}">« Первая</a>
+    {% endif %}
+    {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+            <strong>{{ num }}</strong>
+        {% else %}
+            <a href="?page={{ num }}&q={{ search_query }}">{{ num }}</a>
+        {% endif %}
+    {% endfor %}
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}&q={{ search_query }}">Вперёд »</a>
+    {% endif %}
+</div>
+{% endif %}
+{% endblock %}

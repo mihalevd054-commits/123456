@@ -1,0 +1,20 @@
+{% extends 'shop/base.html' %}
+{% block content %}
+<div class="section-title">🏢 Издательства</div>
+<div class="product-grid">
+    {% for pub in publishers %}
+        <div class="product-card" onclick="window.location.href='{% url 'publisher_games' pub.id %}'">
+            <div class="product-img" style="background: {% cycle '#6C3FB5' '#FF7EB3' '#FFB347' '#4ECB71' '#FF5757' '#2c5f2d' '#1e3a1e' '#5D3A1A' %}; font-size: 4rem;">
+                {% cycle '🐺' '🦊' '🐻' '🐰' '🦝' '🐱' '🐶' '🦉' '🦌' '🐼' %}
+            </div>
+            <div class="product-info">
+                <div class="product-name">{{ pub.name }}</div>
+                <div class="product-desc">{{ pub.country|default:"🌍 Страна не указана" }}</div>
+                <div class="product-meta">
+                    <span>📅 {{ pub.founded_year|default:"—" }}</span>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

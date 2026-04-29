@@ -1,0 +1,11 @@
+/* admin-override.css – полная перезапись стилей админки */
+#header { background: #2c5f2d !important; }
+#branding h1, #branding h1 a { color: white !important; }
+.module h2, .module caption, .inline-group h2 { background: #1e3a1e !important; }
+div.breadcrumbs { background: #1e3a1e !important; }
+.button, input[type=submit], input[type=button], .submit-row input, a.button { background: #2c5f2d !important; }
+.button:hover, input[type=submit]:hover { background: #4ECB71 !important; }
+.selector-chosen h2 { background: #2c5f2d !important; }
+.object-tools a { background-color: #2c5f2d !important; }
+#changelist-filter li.selected a { color: #2c5f2d !important; }
+a { color: #2c5f2d !important; }
