@@ -151,3 +151,5 @@ CSRF_TRUSTED_ORIGINS = [
     'http://web',
     'https://web',
 ]
+
+LOGIN_URL = '/login/'
